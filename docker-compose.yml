@@ -51,9 +51,22 @@ services:
         ports:
             - "33062:3306"
 
+    jenkins:
+        image: jenkins/jenkins:lts
+        container_name: jenkins
+        restart: unless-stopped
+        ports:
+            - "8080:8080"
+            - "50000:50000"
+        volumes:
+            - jenkins_home:/var/jenkins_home
+        networks:
+            - app-network
 
 volumes:
     dbdata:
+        driver: local
+    jenkins_home:
         driver: local
 
 networks:
